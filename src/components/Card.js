@@ -1,5 +1,5 @@
-const Card = ({ imgSrc }) => {
-  return <img src={imgSrc}  alt="Player Card" className="cardImage"/>
+const Card = ({ imgSrc, handlePickCard }) => {
+  return <img src={imgSrc}  alt="Player Card" className="cardImage" onClick={handlePickCard}/>
 }
 
 export default Card;

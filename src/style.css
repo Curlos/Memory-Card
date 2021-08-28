@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:wght@900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 body {
   font-family: Bitter, sans-serif;
@@ -18,6 +18,12 @@ body {
 
 .scoreboard {
   font-family: Orbitron, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #000;
+  width: 40%;
+  color: #C80F2D;
+
 }
 
 .cardsContainer {
@@ -34,9 +40,10 @@ body {
 
 .cardImage {
   height: 300px;
-  margin: 5px;
+  margin: 8px;
   border: 3px solid #EEEEEE;
   border-radius: 6px;
+  box-shadow: 5px 10px 5px rgb(15, 15, 15);
 }
 
 .cardImage:hover {
