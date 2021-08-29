@@ -10,7 +10,7 @@ body {
   font-size: 40px;
   color: white;
   text-align: center;
-  padding: 10px;
+  padding: 25px;
   background-color: #C80F2D;
   border-bottom: 8px solid #EEEEEE;
 }
@@ -28,7 +28,7 @@ body {
   text-align: center;
   color: #C80F2D;
   padding: 20px;
-  border: 3px solid #FFFFFF;
+  border: 5px solid #FFFFFF;
   border-top: 0;
   border-bottom-left-radius: 30%;
   border-bottom-right-radius: 30%;
@@ -90,4 +90,14 @@ body {
 
 .cardImage:active {
   transform: translate(0%, 3%);
+}
+
+@media only screen and (max-width: 450px) {
+  .cardImage {
+    height: 150px;
+  }
+
+  .scoreboard {
+    font-size: 20px;
+  }
 }
