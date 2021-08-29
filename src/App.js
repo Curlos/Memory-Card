@@ -27,12 +27,10 @@ const App = () => {
     generateCards()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCardsTimes])
+  
 
   const handlePickCard = (e) => {
     const cardNum = Number(e.target.id)
-
-    console.log([cardNum])
-    console.log(currentCards.cardNums)
 
     if (guessedCardNums.includes(cardNum)) {
       resetGame()
@@ -45,14 +43,11 @@ const App = () => {
         setBestScore(currentScore + 1)
       }
 
-      console.log(numOfCards[level])
-      console.log(currentScore + 1 === numOfCards[level])
-
       if (guessedCardNums.length + 1 === numOfCards[level]) {
         advanceToNextLevel()
+      } else {
+        shuffleCards()
       }
-
-      //shuffleCards()
     }
   }
 
@@ -68,33 +63,30 @@ const App = () => {
     console.log('card already guessed')
   }
 
-  const shuffle = (array, arrayTwo) => {
-    var currentIndex = array.length,  randomIndex
-  
-    // While there remain elements to shuffle...
-    while (currentIndex !== 0) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex--
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]]
-
-      // eslint-disable-next-line no-sequences
-      [arrayTwo[currentIndex], arrayTwo[randomIndex]] = [
-        arrayTwo[randomIndex], arrayTwo[currentIndex]]
+  const shuffleArray = (array, array2) => {
+    const newArray = [...array]
+    const newArray2 = [...array2]
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        [newArray2[i], newArray2[j]] = [newArray2[j], newArray2[i]];
     }
-  
-    return [array, arrayTwo]
+
+    return [newArray, newArray2]
   }
 
   // eslint-disable-next-line no-unused-vars
   const shuffleCards = () => {
-    const newCurrentCards = shuffle(currentCards.cardNums, currentCards.cardSrcs)
+    console.log(currentCards)
+    const newCurrentCards = shuffleArray(currentCards.cardNums, currentCards.cardSrcs)
     const newCardNums = newCurrentCards[0]
     const newCardSrcs = newCurrentCards[1]
+
+    console.log('SHUFFLING....')
+    console.log({
+      cardNums: newCardNums,
+      cardSrcs: newCardSrcs
+    })
 
     setCurrentCards({
       cardNums: newCardNums,
