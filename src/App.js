@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Scoreboard from './components/Scoreboard'
+import Results from './components/Results'
 import Cards from './components/Cards'
 import './style.css';
 
@@ -14,14 +15,17 @@ const App = () => {
   })
   const [guessedCardNums, setGuessedCardNums] = useState([])
   const [newCardsTimes, setNewCardsTimes] = useState(0)
+  const [shuffleCardTimes, setShuffleCardTimes] = useState(0)
+  const [result, setResult] = useState('')
   const numOfCards = {
     1: 4,
     2: 8,
-    3: 16,
+    3: 12,
   }
 
   useEffect(() => {
     generateCards()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCardsTimes])
 
   const handlePickCard = (e) => {
@@ -31,7 +35,6 @@ const App = () => {
     console.log(currentCards.cardNums)
 
     if (guessedCardNums.includes(cardNum)) {
-      console.log()
       resetGame()
     } else {
       setGuessedCardNums([...guessedCardNums, cardNum])
@@ -48,6 +51,8 @@ const App = () => {
       if (guessedCardNums.length + 1 === numOfCards[level]) {
         advanceToNextLevel()
       }
+
+      //shuffleCards()
     }
   }
 
@@ -63,10 +68,44 @@ const App = () => {
     console.log('card already guessed')
   }
 
+  const shuffle = (array, arrayTwo) => {
+    var currentIndex = array.length,  randomIndex
+  
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex--
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]]
+
+      // eslint-disable-next-line no-sequences
+      [arrayTwo[currentIndex], arrayTwo[randomIndex]] = [
+        arrayTwo[randomIndex], arrayTwo[currentIndex]]
+    }
+  
+    return [array, arrayTwo]
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  const shuffleCards = () => {
+    const newCurrentCards = shuffle(currentCards.cardNums, currentCards.cardSrcs)
+    const newCardNums = newCurrentCards[0]
+    const newCardSrcs = newCurrentCards[1]
+
+    setCurrentCards({
+      cardNums: newCardNums,
+      cardSrcs: newCardSrcs
+    })
+    setShuffleCardTimes(shuffleCardTimes + 1)
+  }
+
   const advanceToNextLevel = () => {
     if (level === 3) {
-      console.log('GAME OVER! You are an NBA Champion!')
-      return
+      setResult('won')
     } else {
       setLevel(level + 1)
       setGuessedCardNums([])
@@ -118,6 +157,7 @@ const App = () => {
     <div className="mainContainer">
       <Header />
       <Scoreboard currentScore={currentScore} bestScore={bestScore}/>
+      <Results result={result} resetGame={resetGame}/>
       <Cards currentCards={currentCards} numOfCards={numOfCards} level={level} handlePickCard={handlePickCard}/>
     </div>
   );

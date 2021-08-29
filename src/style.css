@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 body {
-  font-family: Bitter, sans-serif;
+  font-family: Anton, sans-serif;
   background-color: #1E428A;
   margin: 0;
 }
@@ -23,7 +22,7 @@ body {
 }
 
 .scoreboard {
-  font-family: Arial, sans-serif;
+  font-family: Anton, sans-serif;
   text-align: center;
   color: #C80F2D;
   padding: 20px;
@@ -44,6 +43,20 @@ body {
   color: #FFFFFF;
 }
 
+.result {
+  text-align: center;
+}
+
+.resultText {
+  color: white;
+}
+
+.tryAgainButton {
+  border: 0;
+  margin-left: 10px;
+  padding: 10px;
+}
+
 .cardsContainer {
   display: flex;
   justify-content: center;
@@ -57,7 +70,7 @@ body {
 }
 
 .cardImage {
-  height: 300px;
+  height: 250px;
   margin: 8px;
   border: 3px solid #EEEEEE;
   border-radius: 6px;
@@ -66,4 +79,8 @@ body {
 
 .cardImage:hover {
   transform: scale(1.05);
+}
+
+.cardImage:active {
+  transform: translate(0%, 3%);
 }
