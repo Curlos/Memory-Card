@@ -129,7 +129,7 @@ const App = () => {
     const newCardSrcs = [...currentCards.cardSrcs]
     
     while (pickedCards < numOfCards[level]) {
-      const cardNum = getRandomInt(1, 300)
+      const cardNum = getRandomInt(1, 60)
       if (!newCardNums.includes(cardNum)) {
         const cardNumStr = (cardNum).toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false})
 
