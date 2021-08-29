@@ -17,6 +17,7 @@ const App = () => {
   const [newCardsTimes, setNewCardsTimes] = useState(0)
   const [shuffleCardTimes, setShuffleCardTimes] = useState(0)
   const [result, setResult] = useState('')
+  const [loading, setLoading] = useState(true)
   const numOfCards = {
     1: 4,
     2: 8,
@@ -24,7 +25,9 @@ const App = () => {
   }
 
   useEffect(() => {
+    setLoading(true)
     generateCards()
+    setLoading(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCardsTimes])
   
@@ -60,7 +63,6 @@ const App = () => {
       cardSrcs: []
     })
     setNewCardsTimes(newCardsTimes + 1)
-    console.log('card already guessed')
   }
 
   const shuffleArray = (array, array2) => {
@@ -77,16 +79,9 @@ const App = () => {
 
   // eslint-disable-next-line no-unused-vars
   const shuffleCards = () => {
-    console.log(currentCards)
     const newCurrentCards = shuffleArray(currentCards.cardNums, currentCards.cardSrcs)
     const newCardNums = newCurrentCards[0]
     const newCardSrcs = newCurrentCards[1]
-
-    console.log('SHUFFLING....')
-    console.log({
-      cardNums: newCardNums,
-      cardSrcs: newCardSrcs
-    })
 
     setCurrentCards({
       cardNums: newCardNums,
@@ -124,9 +119,6 @@ const App = () => {
       const cardNum = getRandomInt(1, 60)
       if (!newCardNums.includes(cardNum)) {
         const cardNumStr = (cardNum).toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false})
-
-        console.log(`CURRENT CARD NUMS: ${currentCards['cardNums']}`)
-        console.log(currentCards)
         
         const cardSrc = `/assets/2K-Cards/${cardNumStr}.png`
 
@@ -142,15 +134,13 @@ const App = () => {
     })
   }
 
-  console.log(currentCards)
-
 
   return (
     <div className="mainContainer">
       <Header />
       <Scoreboard currentScore={currentScore} bestScore={bestScore}/>
       <Results result={result} resetGame={resetGame}/>
-      <Cards currentCards={currentCards} numOfCards={numOfCards} level={level} handlePickCard={handlePickCard}/>
+      <Cards currentCards={currentCards} numOfCards={numOfCards} level={level} handlePickCard={handlePickCard} loading={loading}/>
     </div>
   );
 }

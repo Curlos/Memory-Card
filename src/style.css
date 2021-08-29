@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-  font-size: 25px;
+  font-size: 40px;
   color: white;
   text-align: center;
   padding: 10px;
@@ -19,18 +19,25 @@ body {
   display: flex;
   justify-content: center;
   margin: 10px;
+  margin-top: 0;
 }
 
 .scoreboard {
   font-family: Anton, sans-serif;
+  font-size: 25px;
   text-align: center;
   color: #C80F2D;
   padding: 20px;
   border: 3px solid #FFFFFF;
+  border-top: 0;
+  border-bottom-left-radius: 30%;
+  border-bottom-right-radius: 30%;
 }
 
 .score {
   padding: 10px;
+  border-bottom-left-radius: 30%;
+  border-bottom-right-radius: 30%;
 }
 
 .currentScore {

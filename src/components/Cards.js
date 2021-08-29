@@ -1,10 +1,6 @@
 import Card from './Card'
 
-const Cards = ({ currentCards, numOfCards, level, handlePickCard }) => {
-
-  if (!currentCards.cardNums) {
-    return "Loading..."
-  }
+const Cards = ({ currentCards, numOfCards, level, handlePickCard, loading }) => {
   
   return (
     <div className="cardsContainer">
