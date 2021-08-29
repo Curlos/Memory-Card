@@ -13,7 +13,7 @@ const Cards = ({ currentCards, numOfCards, level, handlePickCard }) => {
           const cardNum = currentCards['cardNums'][i]
           const src = currentCards['cardSrcs'][i]
           return (
-            <Card imgSrc={src} key={cardNum} handlePickCard={handlePickCard} />
+            <Card imgSrc={src} key={cardNum} handlePickCard={handlePickCard} id={cardNum}/>
           )
         })}
       </div>

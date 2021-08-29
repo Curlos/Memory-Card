@@ -7,26 +7,75 @@ import './style.css';
 const App = () => {
   const [currentScore, setCurrentScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
-  const [level, setLevel] = useState(4)
+  const [level, setLevel] = useState(1)
   const [currentCards, setCurrentCards] = useState({
     cardNums: [],
     cardSrcs: []
   })
-  const [guessedCards, setGuessedCards] = useState([])
+  const [guessedCardNums, setGuessedCardNums] = useState([])
+  const [newCardsTimes, setNewCardsTimes] = useState(0)
   const numOfCards = {
     1: 4,
     2: 8,
     3: 16,
-    4: 32,
   }
 
   useEffect(() => {
-    setCards()
-  }, [])
+    generateCards()
+  }, [newCardsTimes])
 
-  const handlePickCard = () => {
-    console.log('card click')
-    setCurrentScore(currentScore + 1)
+  const handlePickCard = (e) => {
+    const cardNum = Number(e.target.id)
+
+    console.log([cardNum])
+    console.log(currentCards.cardNums)
+
+    if (guessedCardNums.includes(cardNum)) {
+      console.log()
+      resetGame()
+    } else {
+      setGuessedCardNums([...guessedCardNums, cardNum])
+
+      setCurrentScore(currentScore + 1)
+
+      if (currentScore + 1 > bestScore) {
+        setBestScore(currentScore + 1)
+      }
+
+      console.log(numOfCards[level])
+      console.log(currentScore + 1 === numOfCards[level])
+
+      if (guessedCardNums.length + 1 === numOfCards[level]) {
+        advanceToNextLevel()
+      }
+    }
+  }
+
+  const resetGame = () => {
+    setCurrentScore(0)
+    setLevel(1)
+    setGuessedCardNums([])
+    setCurrentCards({
+      cardNums: [],
+      cardSrcs: []
+    })
+    setNewCardsTimes(newCardsTimes + 1)
+    console.log('card already guessed')
+  }
+
+  const advanceToNextLevel = () => {
+    if (level === 3) {
+      console.log('GAME OVER! You are an NBA Champion!')
+      return
+    } else {
+      setLevel(level + 1)
+      setGuessedCardNums([])
+      setCurrentCards({
+        cardNums: [],
+        cardSrcs: []
+      })
+      setNewCardsTimes(newCardsTimes + 1)
+    }
   }
 
   const getRandomInt = (min, max) => {
@@ -35,7 +84,7 @@ const App = () => {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   }
 
-  const setCards = () => {
+  const generateCards = () => {
     let pickedCards = 0
     const newCardNums = [...currentCards.cardNums]
     const newCardSrcs = [...currentCards.cardSrcs]
